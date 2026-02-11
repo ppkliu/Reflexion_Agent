@@ -1,0 +1,40 @@
+# LLM 設定 — 透過 litellm 支援任何 OpenAI-compatible API
+# litellm 格式：provider/model-name，例如：
+#   anthropic/claude-sonnet-4-5-20250929
+#   openai/gpt-4o
+#   deepseek/deepseek-chat
+#   ollama/llama3           （本地）
+#   openai/my-model  + api_base 指向自建 endpoint
+
+model:
+  # litellm model ID（參考 https://docs.litellm.ai/docs/providers）
+  id: openai/gpt-4o
+  max_tokens: 4096
+  temperature: 0.7
+
+  # 若使用 OpenAI-compatible 自建 API，設定 api_base + api_key
+  # api_base: http://localhost:8000/v1
+  # api_key: sk-xxx
+
+  # 若使用不同模型做不同角色（可選覆蓋）
+  evaluator_model: null   # null = 用上面同一個 model
+  reflector_model: null
+
+knowledge:
+  root_dir: ./knowledge
+  rga_context_lines: 6
+  rga_max_matches: 4
+
+reflexion:
+  max_trials: 7
+  min_success_score: 0.82
+  reflection_top_k: 4
+
+tot:
+  branch_factor: 4
+  max_depth: 5
+  beam_width: 3
+  search_algo: bfs
+
+db:
+  path: ./data/reflexion.db
